@@ -1,0 +1,31 @@
+# --- Server diary & notes ---
+server-diary/
+*diary*
+*.private.md
+
+# --- real confs (only .example) ---
+netplan/*.yaml
+!netplan/*.example.yaml
+sshd_config
+!sshd_config.example
+jail.local
+!jail.local.example
+fstab
+!fstab.example
+
+# --- Credentials, keys, secrets ---
+*.pem
+*.key
+id_rsa*
+id_ed25519*
+*.env
+secrets/
+
+# --- Backups & logs ---
+*.log
+*backup*.tar.gz
+/data/backups/
+
+# --- OS / editor ---
+.DS_Store
+*.swp
