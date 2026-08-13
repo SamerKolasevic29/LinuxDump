@@ -1,0 +1,12 @@
+[Unit]
+Description=second service for Roadmap, controlled via timer for logging free -h and du /data / -h
+After=getty.target
+ConditionPathExists=/data/scripts/Phase1Script2.sh
+
+[Service]
+Type=oneshot
+ExecStart=/data/scripts/Phase1Script2.sh
+User=root
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,38 @@
+[Unit]
+Description=Timer that runs every 2 hours
+# Najbolje bi bilo u ovom slucaju nakon svih popaljenih stvari
+# vidio sam da je docker.service najrelevantniji
+After=docker.service
+
+[Timer]
+# OnCalendar je nama sada najbitniji, zasto?
+# - zato sto je kao cron flekisbilan sa svim intervalima
+# - mozemo u sekundu da stavimo kada se nesto pali, u nekom rasponu dana, koji mjesec koji dan u mjesecu itd
+# PRIMJERI
+
+# OnCalendar=hourly		[svaki sat na pocetku sata 00:00]
+# OnCalendar=daily		[Svaki dan u ponoc]
+# OnCalendar=weekly		[Svaki ponedjeljak u ponoc]
+# OnCalendar=Mon..Fri 08:00:00 	[Svaki radni dan u 8 ujutro	
+# OnCalendar=*-*-01 4:00:00	[Svakog prvog u mjesecu u 4 ujutro]
+
+# Imamo takodjer i relativne koji se na osnvou lifecycle-a OS-a  primjenjuje
+# PRIMJERI
+
+# OnBootSec=15min		[Pokreni servis 15 minuta nakon sto se boota]
+# OnUnitActivateSec=2h		[Pokreni servis 2 sata NAKON STO SE uspjesno izvrsio]
+# OnUnitInactivateSec=1d	[Pokreni servis 1 dan nakon sto se ugasio]
+
+
+# ovo znaci svaka dva sata mi radi to
+OnCalendar=*-*-* 00/2:00:00
+
+# Reakcija na gasenje racunara
+Persistent=true
+
+#ako se servis i timer ne zovu isto onda se navodi unit, evo kao primjer iako se isto zovu nazvat cu ga
+Unit=Phase1Script2.service
+
+[Install]
+# Isto kao za ser4vise multi-user.target, tako isto ovdje timers.target
+WantedBy=timers.target

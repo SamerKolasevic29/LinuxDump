@@ -1,0 +1,28 @@
+[Unit]
+Description=Service that rns Phase1Script1.sh and that script reads uptime, hostname, then writes them in /data/logs/boot.log
+
+# Dependency koji govori PRIJE cega se pali
+Before=getty.target
+
+# Dependency koji govori NAKON cega se pali
+After=local-fs.target
+
+# Ne treba nam uslov ovdje jer skripta obezbjedjuje pravljenje boot.log ali evo stavljamo ovako
+ConditionPathExists=/data/scripts/Phase1Script1.sh
+
+# stavicemo uslov da srkipta postoji, u protivnom se nece upaliti servis
+
+[Service]
+
+# Type = oneshot ide iz razloga sto se samo jednom dedsi tacnije u trenutku odradi svoj posao i tjt
+Type=oneshot
+
+# postavlja se puna putanja, za relatinvnu se navodi workingdirectory ali to cemo na slj servis
+ExecStart=/data/scripts/Phase1Script1.sh
+#User=srv01
+
+[Install]
+
+# da bi radio pri boot-u, mora ici WantedBy
+# WantedBy direktiva govori ko ce ga traziti u svom procesu paljenja a to je multi-user znaci multi-user ga kupi sa sobom
+WantedBy=multi-user.target
