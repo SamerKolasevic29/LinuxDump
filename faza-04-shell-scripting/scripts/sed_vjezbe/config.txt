@@ -1,0 +1,11 @@
+# Server configuration
+
+HOST=localhost
+PORT=8080
+
+
+
+DEBUG=true
+
+# temporary setting
+MODE=development

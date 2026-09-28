@@ -1,0 +1,166 @@
+MANIPULACIJA USERIMA
+CHOWN CHMOD
+SUID SGID STICKY BIT
+
+Ovaj dio GNU/Linux a i samog sys admin svijeta je vrlo bitan radi sigurnosti podataka kao i same prevencije desavanja necega neocekivanog (zloupotreba SUID-a za kontrol hakove itd)
+
+	==MANIPULACIJA USERIMA==
+
+U okruženju imamo grupe i usere, useri su dio grupa dok su grupe logicki ili namjenski skupovi usera.
+Ovjde nam pomazu da pravimo privilegije, postavljamo okolinu, te pristupamo sigurnosnim mjerama
+
+1. Kreiranje usera:
+
+*NAPOMENA - pisac koji piše radi na Red Hat grupi GNU/Linux distribucija te se odnosi samo na useradd i group add*
+
+**Debian-orijentisani imaju dvije vrste a to su useradd i adduser**
+
+PRIMJER:
+----------------------------
+
+sudo groupadd ime__grupe
+
+sudo useradd -m -g ime__grupe -s /putanja/shella ime__usera
+
+sudo passwd ime__usera
+
+----------------------------
+
+OBJASNJENJE: 
+	-- u liniji sa groupadd, ime__grupe se odnosi na ime koje stavljamo
+	-- u liniji useradd 
+		--- -m flag navodi da se novokreiranom pravi home dir
+		--- -g flag navodi da se odmah stavlja u grupu (ime__grupe)
+		--- ime__usera se odnosi na ime koje stavljamo
+	-- passwd je sekvenca postavljanja lozinke novokreiranom useru 
+
+
+	== CHWON CHMOD ==
+
+Jedan vrlo frekventan dio su permisije
+ ** pretrivijalno je postalo rwxrwxrwx tako da necu o tome **
+
+* ovaj dio ce samo pokrivati neke cake i to *
+
+PRIMJER ZA PISANJE:
+----------------------------
+
+# 1. 
+sudo chmod 755 /target/putanja
+
+# 2.
+sudo chmod +rwx /tagret/putanja
+
+# 3.
+sudo u+rwx /target/putanja
+
+# 4.
+sudo g=rx /target/putanja
+
+# 5.
+sudo o-wx /target/putanja
+
+----------------------------
+
+OBJASNJENJE: (5 razlicitih pisanja)
+
+1. Oktalno, svaki broj je zbir atributa koje nosi OwnerGroupOther redoslijed
+	-- 7 = 4 + 2 + 1 (read(4) + write(2) + execute(1))
+	-- 5 = 4 + 1 (read(4) + execute(1))
+
+2. Opcenito dodavanje, +atribut1Atribut2Atribut3 je dodavanje atributa a svetri clana 
+
+3. Ciljano dodavanje, Clan+Atribut1Atribut2Atribut3 je eksplicitno dodavanje na ciljanog clana
+
+4. Cilajno izjednacavanje, Clan=Atribut1Atribut2Atribut3 je eksplicitno izjednavanje sa nim atributima koje smo naveli
+
+5. Ciljano oduzimanje, Clan-Atribut1Atribut2Atribut3 je eskplicitno oduzimanje atributa koje smo naveli
+
+--
+
+Sljedeci koncept je davanje ovlasti tacnije koga cemo gledati kao ownera datom direktorijumu ili fajlu
+
+PRIMJER:
+----------------------------
+
+sudo chown Ime__usera:Ime__grupe /target/putanja
+
+----------------------------
+
+Objasnjenje: Navodimo Ime__usera koji ce se gledati kao Owner clan u permisijama kao i Ime__grupe koja cense oslanjati na atribbute Group clan permisija
+
+
+	=== SUID SGID I STICKY BIT ===
+
+Dublje karafeke sa permisijama daju SUID SGID i Sticky bit
+
+SUID - daje korisniku da pokrene izvrsnu datoteku privilegijama VLASNIKA FAJLA a ne sa sopstvenim privilegijama
+
+PRIMJER:
+----------------------------
+  
+# 1. napravimo neku skriptu koja ima malo vece ovlasti (sa user1 userom)
+vim script.sh
+
+# 2. dajemo joj SUID kreirajuci nove permisije (sada chmod ima 4 broja a SUID je 1. i nosi cifru 4)
+sudo chmod 4766 script.sh
+
+# 3. uradimo login usera2
+su - user2
+
+# 4. probamo da pokrenemo skriptu bez sudo
+./script.sh 
+----------------------------
+
+RADI! ZASTO? - zato sto je 4755 zapravo rwsrw-rw- user1:user1 script.sh 
+		-- s na mjestu x kod Ownera znaci postavjen SUID (definicija gore)
+
+---
+SGID - Svi novi fajlovi i poddirektorijumi kreirani unutar direktorija sa SGID NASLJEDJUJU GRUPU tog direktorijuma umjesto onoga koji je pravio bas te navedene stvari unutra
+
+PRIMJER:
+----------------------------
+
+# 1. kreira se direktorij
+mdkdir /opt/projekat
+
+# 2, ovlasti idu na grupu zvanu DevTeam
+sudo cown root:DevTeam /opt/projekat
+
+# 3. POSTAVLJA SE SGID (opet 4 broja unutar chmod, 1. je SGID i on je broj 2)
+sudo chmod 2755 /opt/projekat
+
+# 4. test - ulazimo kao user koji nije dio te grupe
+su - User45
+
+# 5. pravimo fajl u /opt/projekat ali User45 nije dio grupe DevTeam
+touch /opt/projekat/fajl_od_User45.txt
+
+# 6. na ls -l je owner User45 medjutim grupa je DevTeam
+ls -l /opt/projekat/fajl_od_User45.txt
+
+OUTPUT: rwxr-xr-x User45 DevTeam fajl_od_User45.txt
+----------------------------
+
+
+Sticky bit - on se postavlja na direktorijumima  njegov cilj je da zaustavi korisnike DA BRISU ILI PREIMENuju FAJLOVE koji nisu njihovi bez obzira na rwxrwxrwx
+
+PRIMJER: 
+----------------------------
+
+# 1 pravimo direktorij sa tim sticky bitom
+mkdir /opt/ZadjednickiDirektorij 
+sudo chmod 1777 /opt/ZajednickiDirektorij
+
+# 2. Kao Marko pravim fajl
+touch /opt/ZajednickiDirektorij/fajl_marko.txt
+
+# 3. udjem kao Petar 
+su - petar
+
+# 4. probam obrisati markov fajl
+rm -rf /opt/ZajednickiDirektorij/fajl_marko.txt
+
+OUTPUT: Operation not permitted 
+----------------------------
+

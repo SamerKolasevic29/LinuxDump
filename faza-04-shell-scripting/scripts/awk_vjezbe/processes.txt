@@ -1,0 +1,6 @@
+PID USER CPU COMMAND
+1234 samer 2.4 firefox
+2222 root 0.1 systemd
+3312 samer 15.7 chrome
+4121 root 1.2 sshd
+5123 samer 8.9 code
