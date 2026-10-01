@@ -14,6 +14,10 @@
 - sed 
 - grep
 
+- expr (treba zapisati to da je dobar za substringove, trazenje indeksa prvog pojavljivanja, duzina itd)
+takodjer ima i sabiranje i ostale aritm operacije ali dok a takve kalkulacije na 1000 iteracija radi fork i exec
+dok bash bulitin ima $((a + b, oduzimanje mnozenje i radi na jos nizem nivou))
+
 -- xargs
 -- args 
 -- find - exec
