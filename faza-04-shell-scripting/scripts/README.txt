@@ -20,7 +20,8 @@ dok bash bulitin ima $((a + b, oduzimanje mnozenje i radi na jos nizem nivou))
 
 -- xargs
 -- args 
--- find - exec
+-- find - exec (kombinacija pretrage fajlova po tipu i/ili patternu te izvrsavanje komande po svakom tom fajlu,
+postoji kulmunalno i pojedinacno prikupljanje rezultata HINT: sa tail -n 1 vadim total na kulmunalnoj sumi)
 -- subshells
 -- read
 -- source
