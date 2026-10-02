@@ -13,9 +13,9 @@ Mjesto na kojem će biti izložene skripte, timeri, servisi, bilješke i sve ost
 | Faza | Status |
 |------|--------|
 | 1 — Kernel, Boot & Procesi |  Završeno |
-| 2 — Filesystem, Storage & Permissions |  U toku (koncept 4/11 — LVM) |
+| 2 — Filesystem, Storage & Permissions |  Završeno |
 | 3 — Networking |  |
-| 4 — Shell Scripting & Automation |  |
+| 4 — Shell Scripting & Automation | u toku (faza 2 me odvela) |
 | 5 — Server Administration & Services |  |
 | 6 — Troubleshooting & Automation |  |
 
@@ -45,19 +45,20 @@ LinuxDump/
 ├── faza-02-filesystem-storage-permissions/
 │   ├── README.md
 │   ├── configs/
-│   │   └── fstab.example               # sanitizovan
+│   │   └── fstab.example           
 │   ├── diagrams/
 │   │   ├── lvm-layout.svg
 │   │   └── EXTRACTION.md
 │   └── notes/
 │       └── lvm-snapshot-workflow.md
 │
-├── faza-03-networking/                 # dodaješ kad stigneš
+├── faza-03-networking/                 
 ├── faza-04-shell-scripting/
 │   └── scripts/
-│       ├── disk-alert.sh
-│       ├── lvm-snapshot.sh
-│       └── awk-analyzer.sh
+│       ├── exec_vjezbe
+                        ---[POGLEDATI DETALJNO]---
+│       ├── expr_vjezbe
+│       └── awk_vjezbe
 ├── faza-05-server-administration/
 ├── faza-06-troubleshooting-automation/
 └── HomeLab
