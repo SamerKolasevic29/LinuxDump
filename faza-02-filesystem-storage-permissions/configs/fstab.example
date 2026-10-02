@@ -1,0 +1,24 @@
+
+#
+# /etc/fstab
+# Created by anaconda on Thu Feb 12 22:54:02 2026
+#
+# Accessible filesystems, by reference, are maintained under '/dev/disk/'.
+# See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info.
+#
+# After editing this file, run 'systemctl daemon-reload' to update systemd
+# units generated from this file.
+#
+UUID=7a06b7d1-50ab-49a7-ae14-b18fb3be102f / btrfs subvol=root,compress=zstd:1 0 0
+UUID=dcc2b860-2312-442e-8150-a8483d859de2 /boot ext4 defaults 1 2
+UUID=7715-464B /boot/efi vfat umask=0077,shortname=winnt,umask=0077,shortname=winnt 0 2
+UUID=7a06b7d1-50ab-49a7-ae14-b18fb3be102f /home btrfs subvol=home,compress=zstd:1 0 0
+
+# Ovdje da stavim ovaj USB (Particiju 1) na /home/SAMER/mjuza ali
+#	-- da ne remeti boot sekvncu (pass 0, nofail)
+#	-- x-systemd.automount zanci da ce se mount desiti tek kada pristupim folderu
+#	-- defaults znaic da ga stavlja u klasicni read-write
+# UUID=afe6c90b-1ae8-4cf8-83d0-6c98fb04a1c9 /home/SAMER/mjuza btrfs defaults,nofail,x-systemd.automount 0 0
+
+# sada postavljam /dev/sda3 kao swap
+# /dev/sda3 none swap sw 0 0
