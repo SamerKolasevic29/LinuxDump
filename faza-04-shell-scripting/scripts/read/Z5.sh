@@ -8,4 +8,7 @@
 # NE CTIA TACNIJE PREKSACE
 # --- uradit cemo na nacin da ostale linije samo ispise, davno smo pokazali da se se moze :))
 
-# --- NAKON KAFE ---
+while IFS= read -r line || [[ -n $line ]]; do
+	[[ -z "$line" ]] || [[ "$line" =~ ^[[:space:]] ]] || [[ "$line" =~ ^#.*$ ]] && { continue; }
+        echo "$line"	
+done < server.txt

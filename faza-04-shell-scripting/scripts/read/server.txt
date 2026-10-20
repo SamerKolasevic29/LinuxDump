@@ -1,0 +1,4 @@
+# ovo je komentar
+ ova linija pocinje sa space
+
+SAMO SE OVO ISPISUJE
