@@ -1,0 +1,40 @@
+source (modularnost)
+
+-- u neku ruku isto include u cpp-u ili jednostavno to da samo pozove skriptu
+
+2 VRSTE
+
+-- 1. pokretanje (poziva skriptu u child proces, odradi svoje i nestane)
+-- 2. uctavanje (cita skritpu u istom shellu, mozemo uzimati funkcije i globalne varijable koje su u tom shellu)
+
+
+[PROBLEM SA SOURCE ./putanja]
+-- skripta je hodala po sistemu sa cd i otisla je negdje van svog direktorija
+-- hocemo da uradimo source ./logs.sh (misleci da je pozivamo ovako u svom dir ali je odlutala skripta)
+
+RJESENJE:
+-- BASH_SOURCE[0] nam daje trenutnu putanju gdje se skirpta nalazi (ako smo hodali)
+-- readlink -f pretvara tu putanjju u apsolutnu i rjsava symlinkove
+
+-- fakticki amo spremimo sebi kao globlnu SELF_DIR i tjt
+
+[INCLUDE GUARD]
+
+-- ahaa, preko varijable pravimo soigurnost iclude-anja
+
+[[ -n ${_XM_LOG:-} ]] && return; _XM_LOG=1
+// ako je vec soursana skripta (ako vec varijavbla ima broj 1, idi dalje) 
+// ako nema (onda nije ni soursana) daj joj broj 1 i onda tako znaci da je uvijek sorsana
+
+[READING PRAKSA]
+-- sa source on radi unutra executing fakticki, da ne bi sada haker njega zloupotrijebio
+-- RADIMO PARSING WHILE READ (i to samo KEY=VALUE)
+
+[MAIN GUARD]
+-- sluzi da skripta moze biti i zasebna skripta i bibliotek funkcija
+-- radi sa [[ "${BASH_SOURCE[0]}" == "$0"  ]] then
+	# tijelo DIJELA KOJI SE DESI SAMO KADA SE ZASEBNO POZIVA SKRIPTA
+fi
+
+sve mimo toga je biblioteka `
+
