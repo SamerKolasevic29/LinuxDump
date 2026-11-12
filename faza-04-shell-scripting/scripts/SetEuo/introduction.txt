@@ -1,0 +1,15 @@
+set -euo pipefail 
+
+ovo su stvari koje trebaju imati automatition skripte radi sigurnosti toka rada i rukovanja nezeljenim situacijama
+
+[ set -e ]
+- govori skripti da se prekine ako neka komanda neocekivano padne
+- ima svoje izuzetke
+
+[ set -u ]
+- govori skripti da ne dozovoli koristenje nedeklarisanih varijabli
+
+[ set -u pipefail ]
+- dobija failure ako jedna od njegovih komponenti padne
+- mijenja status pipeline-a
+
