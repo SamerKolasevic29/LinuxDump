@@ -1,0 +1,26 @@
+Process Substitution
+- shell pravi privremeni file-like interface koji druga komanda moze da cita
+
+diff <(command1) <(command2)
+isto diff samo dobro da ako komanda nesto relevantno za diff
+
+diff <(ls dir1) <(ls dir2)
+- ovdje je korisno sto cemo praviti razliku izmedju necega sto ne mozemo drugacije sem preko komande da izvadimo
+
+JOS NEKE DODATNE STVARI:
+
+1. KAKO RADI:
+- Bash u pozadini pokrene tu komandu unutar <(...) 
+- izlaz komande poveze sa posebnim sis. fajl deskriptorom u RAM-u (/dev/fd/63) 
+- i umjesto <(komanda) toj drugoj komandi podmetne putanju do tog fake fajla 
+- ta komanda misli da cita sa obicnog fajla a zapravo cita izlaz iz komande bez da pise po disku
+
+2. PRIMJERENE
+- poredjenje izlaza dvije komande bez pravljenja temp fajlova  (koristenje u zraku)
+- izbjegavanje subshell zamke u whike read-u (tu izlaz processSub-a )
+- slanje istog izlaza na vise mjesta odjednom sa tee (koristi se >(...) u koju ulaze sada outputi jedne komande)
+
+3. KADA NE KORISTITI
+- sa lseek jer nema seek operacije (processSub je one-time stvar)
+- nije POSIX standard (imaju ga bash zsh i ksh)
+- ne radi sa set -e tako da ako pukne unutar processSuba nesto, ne mozemo hendlat
