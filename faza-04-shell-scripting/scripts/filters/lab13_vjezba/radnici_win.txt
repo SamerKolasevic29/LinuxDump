@@ -1,0 +1,6 @@
+ID   IME        ODJEL       PLATA
+101  Amir       IT          2400
+102  Selma      Prodaja     1950
+103  Tarik      IT          3100
+104  Lejla      Marketing   2100
+105  Dino       IT          2400
