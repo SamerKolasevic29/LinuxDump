@@ -1,6 +1,3 @@
-nginx.service: ACTIVE
-postgresql.service: ACTIVE
-redis.service: FAILED
-docker.service: ACTIVE (primary) | backup: FAILED
-ssh.service: ACTIVE
-cron.service: FAILED
+nginx.service: UP
+postgresql.service: UP
+ssh.service: UP
