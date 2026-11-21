@@ -1,0 +1,12 @@
+{
+  "app_name": "xmonitor",
+  "settings": {
+    "check_interval": 30,
+    "max_retries": 3,
+    "debug": false
+  },
+  "allowed_ips": [
+    "127.0.0.1",
+    "10.0.0.10"
+  ]
+}

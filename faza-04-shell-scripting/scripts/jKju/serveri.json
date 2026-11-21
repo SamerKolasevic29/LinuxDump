@@ -1,0 +1,8 @@
+{
+  "klaster": "eu-central",
+  "serveri": [
+    { "ime": "web-01", "ip": "10.0.1.10", "aktivan": true,  "ram": 4096 },
+    { "ime": "db-01",  "ip": "10.0.1.20", "aktivan": true,  "ram": 16384 },
+    { "ime": "test-1", "ip": null,        "aktivan": false, "ram": 2048 }
+  ]
+}

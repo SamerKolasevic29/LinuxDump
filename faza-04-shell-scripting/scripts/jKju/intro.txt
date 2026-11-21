@@ -1,0 +1,33 @@
+ jq - util za formatiranje, ispis i prilazak kroz json fajlove
+
+ici cemo sa objasnjenjima 
+
+jq '.' ime_fajla.json
+- uzima sve objekte unutar json-a i ispisuje pretty print obojeni
+- dobar je za ispis cijelog a se vidi sta se desava
+
+jq '.imeObjekta' ime_fajla.json
+- uzima samo taj objekat eksplicitno naveden i ispisuje sve njegove recorde
+
+jq -r [ raw string flag - ispisuje vrijednosti bez navodnika]
+
+jq '.[]' ime_fajla.json
+- ispisuje sve nizove koji se spominju unutar tog fajla
+
+jq '.imeNiza[]' ime_fajla.json
+- uzima sve elemente niza koji se tako zove
+
+jq '.imeNiza[] | .imeObjekta' 
+- uzima ciljani tip niza i ispisuje sve njegove objekte pod tim istim imenom objekta
+
+jq '.imeNiza[] | select(.imeObjekta uslov vrijednost)' 
+- uzima ciljani tip niza, te sve njegove objekte koji zadovoljavaju uslov
+
+jq '.imeNiza'[] | select(.imeObjekta uslov vrijednost) | "\(.imeObjekta) zadovoljaa uslov"
+izlaz: $Vrijednost$ zadovoljava uslov
+- uzima sve objekte koji zadovoljavaju uslov unutar ciljanog objekta te radi formatirano pisanje
+- \(.imeObjekta) je kao $imeObjekta u shellu
+
+jq '[.services[] | select (statement1 and statement2) | {object1: .objectFromJSON1, object2: .objectFromJSON2]}' ime_fajla.json
+
+klasicno pravljenje niza od cijelog pipeline-a sa imenima objekata PO ELEMENTU

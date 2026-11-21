@@ -1,0 +1,6 @@
+{"timestamp":"2026-11-21T10:12:01Z","service":"auth-api","level":"INFO","message":"User login successful","status_code":200}
+{"timestamp":"2026-11-21T10:15:00Z","service":"auth-api","level":"ERROR","message":"Invalid token","status_code":401}
+{"timestamp":"2026-11-21T10:16:22Z","service":"billing-worker","level":"WARN","message":"High latency on payment gateway","status_code":200}
+{"timestamp":"2026-11-21T10:18:45Z","service":"billing-worker","level":"ERROR","message":"Database connection timeout","status_code":504}
+{"timestamp":"2026-11-21T10:20:10Z","service":"auth-api","level":"ERROR","message":"Rate limit exceeded","status_code":429}
+{"timestamp":"2026-11-21T10:22:05Z","service":"cache-proxy","level":"ERROR","message":"Upstream node unreachable","status_code":502}
