@@ -1,0 +1,34 @@
+sed i grep - utils za pretragu (grep) i for formatiranje (sed), a i za dodatne kalk. (awk)
+
+NEKE BITNE STVARI:
+grep -E [extended REGEX] se pali kada trazimo pattern teksta (kao i sed -E)
+
+grep -F [fixed string] kada trazimo neki fiksan string
+
+grep -q [quiet] ne ispisuje rezultat nego samo nadje prvi match (dobar za provjere)
+
+sed 's/sta/cime'
+s [substitution]
+sta [ono sto nadje da zamijeni]
+cime [ono sto ce biti umjesto 'sta' dijela]
+
+sed 's/sta/cime/gI'
+sve isto samo:
+g [globalno - mijenja svaki match] 
+I [case insensititve]
+
+klase znakova
+[:space:] - svi whitespace znakovi
+[:upper:] - sva velika slova
+[:lower:] - sva mala slova
+[:digit:] - cifre od 0 do 9
+[:alpha:] - sva slova
+[:alnum:] - sva slova i svi brojevi
+
+PAZITI NA exit kodove grepa
+0 - pronadjeno
+1 - nije pronadjeno
+2 - greska (not found perm denied ... )
+
+- dok gradimo sed komandu NE KORISTITIT -i od prvog pokusaja, prvo da vidimo na stdout rez, pa onda
+- prave i prod. skripte rade atomski upis (temp file + mv), jer sed -i u pozadni pravi novi fajl i moze pregazitii dozvole i ostaviti ostecen fajl

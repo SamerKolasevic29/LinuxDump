@@ -1,0 +1,17 @@
+# This is the sshd server system-wide configuration file.
+
+#Port 22
+#AddressFamily any
+   # ListenAddress 0.0.0.0
+ListenAddress ::
+
+Protocol 2
+   
+# Authentication:
+LoginGraceTime 2m
+PermitRootLogin no
+#StrictModes yes
+MaxAuthTries 3
+
+PubkeyAuthentication yes
+PasswordAuthentication no
